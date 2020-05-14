@@ -23,8 +23,8 @@ public class RegisterController {
 	static final String SUCCESS_URL = "redirect:/home";
 	static final String ACTIVE_USER = "activeUser";
 	static final String ERROR_MSG = "errorMessage";
-	static final String USERNAME_EXISTS_MSG = "username exists";
-	
+	static final String USERNAME_OR_EMAIL_EXISTS_MSG = "username or email already exists";
+
 	private UserService userService;
 
 	@Autowired
@@ -51,11 +51,15 @@ public class RegisterController {
 		}
 		User registeredUser = userService.register(formUser);
 		if (registeredUser == null) {
-			model.addAttribute(ERROR_MSG, USERNAME_EXISTS_MSG);
+			model.addAttribute(ERROR_MSG, USERNAME_OR_EMAIL_EXISTS_MSG);
 			return ERROR_URL;
 		}
 		session.setAttribute(ACTIVE_USER, registeredUser);
 		return SUCCESS_URL;
 	}
 
+	@GetMapping(value = "/login")
+	public String getLoginPage(Model model, HttpSession session) {
+		return "login";
+	}
 }

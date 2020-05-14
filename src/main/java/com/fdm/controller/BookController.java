@@ -9,7 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.fdm.dao.UserRepository;
 import com.fdm.model.Book;
+import com.fdm.model.FormUser;
+import com.fdm.model.User;
 
 @Controller
 public class BookController {
@@ -17,7 +20,6 @@ public class BookController {
 	@GetMapping("/getBooks")
 	public String getProductsPage(HttpSession session) {
 		List<Book> books = new ArrayList<>();
-		books.add(new Book("Harry Potter", 34.99));
 		session.setAttribute("allBooks", books);
 		return "Books";
 	}

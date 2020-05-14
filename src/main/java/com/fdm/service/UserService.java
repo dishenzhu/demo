@@ -21,7 +21,7 @@ public class UserService {
 	}
 
 	public User register(FormUser formUser) {
-		if (userRepository.countByUsername(formUser.getUsername()) != 0) {
+		if (userRepository.countByUsername(formUser.getUsername()) != 0 || userRepository.countByEmail(formUser.getEmail()) != 0) {
 			return null;
 		}
 		User user = new User(formUser);

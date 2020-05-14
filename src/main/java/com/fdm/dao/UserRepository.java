@@ -15,7 +15,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
 	Optional<User> findByUsername(String username);
 	long countByUsername(String username);
-	
+	long countByEmail(String email);
 	
 	
 	@Query("select u from User u where u.username = :name")

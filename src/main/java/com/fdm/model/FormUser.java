@@ -6,19 +6,22 @@ import javax.validation.constraints.Size;
 public class FormUser {
 
 	@NotBlank(message = "username cannot be left empty")
-	@Size(min = 8, max = 14)
+	@Size(min = 1, max = 14)
 	private String username;
 	@NotBlank(message = "password cannot be left empty")
 	private String password;
+	@NotBlank(message = "email cannot be left empty")
+	private String email;
 
 	public FormUser() {
 		super();
 	}
 
-	public FormUser(String username, String password) {
+	public FormUser(String username, String password, String email) {
 		super();
 		this.username = username;
 		this.password = password;
+		this.email = email;
 	}
 
 	public String getUsername() {
@@ -35,6 +38,14 @@ public class FormUser {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

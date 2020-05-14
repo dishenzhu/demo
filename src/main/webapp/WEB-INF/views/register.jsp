@@ -12,11 +12,16 @@
 </head>
 <body>
 
-	<h3>Register Page</h3>
+<h3>Create a new account</h3>
+
 	<sf:form action="processRegister" method="post"
 		modelAttribute="formUser">
 		<sf:input path="username" placeholder="Enter a username" />
 		<sf:errors path="username" />
+		<br>
+				<sf:input path="email" placeholder="Enter an email" />
+		<sf:errors path="email" />
+		<br>
 		<sf:input type="password" path="password"
 			placeholder="Enter a password" />
 		<sf:errors path="password" />
@@ -26,7 +31,5 @@
 	<c:if test="${ not empty errorMessage }">
 		<p>${ errorMessage }</p>
 	</c:if>
-
-
 </body>
 </html>
