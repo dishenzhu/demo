@@ -27,9 +27,9 @@ public class Transaction {
 	@OneToOne
 	Book book;
 	
-	public Transaction(LocalDateTime date, User buyer, Book book) {
+	public Transaction( User buyer, Book book) {
 		super();
-		this.date = date;
+		this.date = LocalDateTime.now();
 		this.buyer = buyer;
 		this.book = book;
 	}

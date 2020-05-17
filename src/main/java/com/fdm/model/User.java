@@ -1,8 +1,10 @@
 package com.fdm.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,8 +23,18 @@ public class User {
 	private String email;
 	@JsonIgnore
 	private String password;
-	@OneToMany(mappedBy="seller")
-	List<Book> books;
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="seller")
+	List<Book> books = new ArrayList<>();
+	@OneToMany( mappedBy="buyer")
+	List<Transaction> history=new ArrayList<>();
+
+	public List<Transaction> getHistory() {
+		return history;
+	}
+
+	public void setHistory(List<Transaction> history) {
+		this.history = history;
+	}
 
 	public User() {
 		super();
@@ -64,6 +76,22 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public void add(Book book) {		
+		books.add(book);
+	}
+
+	public List<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
+	
+	public void add(Transaction transaction) {
+		history.add(transaction);
 	}
 
 }

@@ -15,8 +15,25 @@ public class Book {
 	private String name;
 	private double price;
 	private String author;
+	private boolean forSale = true;
+	public boolean isForSale() {
+		return forSale;
+	}
+
+	public void setForSale(boolean forSale) {
+		this.forSale = forSale;
+	}
+
 	@ManyToOne 
 	User seller;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public Book() {
 		super();

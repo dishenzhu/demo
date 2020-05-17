@@ -11,18 +11,12 @@
 <style>
 body 
 {
-	background-image:url('feather.png');
-  background-repeat:no-repeat;
   background-position:center;
 	background-color:blanchedalmond;
 }
-h3
-{
-	color:green;
-}
 
 </style>
-<title>Home</title>
+<title>Selling</title>
 </head>
 <body>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -64,21 +58,23 @@ h3
     </form>
   </div>
 </nav>
+
 <div class="container">
-		<c:if test="${ not empty message }">
-		<h3>${ message }</h3>
-		</c:if>
+
+<h1>Add your book for selling</h1>
+	<sf:form action="processSelling" method="post" class = "form-group"
+		modelAttribute="book">
 		
-	<c:choose>
-		<c:when test="${ not empty sessionScope.activeUser }">
-			<h1>Welcome ${ sessionScope.activeUser }!</h1>
-		</c:when>
-		<c:otherwise>
-			<p>Welcome guest!</p>
-		</c:otherwise>
-	</c:choose>
-	</div>
-
-
+		<sf:input path="name" class = "form-group" placeholder="Enter a name"/>
+		<br>
+		<sf:input path="author" class = "form-group" placeholder="Enter a author"/>
+		<br>
+		<sf:input path="price" class = "form-group" placeholder="Enter a price"/>
+		
+		<br>
+		<input type="submit" class="btn btn-primary" value="Sell Now" />
+		
+		</sf:form>
+ </div>
 </body>
 </html>

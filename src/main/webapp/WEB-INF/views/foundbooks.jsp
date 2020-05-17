@@ -11,19 +11,14 @@
 <style>
 body 
 {
-	background-image:url('feather.png');
-  background-repeat:no-repeat;
   background-position:center;
 	background-color:blanchedalmond;
 }
-h3
-{
-	color:green;
-}
 
 </style>
-<title>Home</title>
+<title>Found Books</title>
 </head>
+
 <body>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -65,20 +60,19 @@ h3
   </div>
 </nav>
 <div class="container">
-		<c:if test="${ not empty message }">
-		<h3>${ message }</h3>
-		</c:if>
+<h1>Search Result</h1>
+
+	<c:forEach items="${ sessionScope.foundBook }" var="book">
+		<p>Name: ${ book.name }</p>
+		<p>Author: ${ book.author }</p>
+		<p>Price: $${ book.price }</p>
+		<p>Seller email: ${ book.seller.email }</p>
+		<form action="processBuying" method= "post" >
+		<input type="hidden" name="bookId" value="${ book.id }" >
+		<input type="submit" value="Buy" />
+		</form>
 		
-	<c:choose>
-		<c:when test="${ not empty sessionScope.activeUser }">
-			<h1>Welcome ${ sessionScope.activeUser }!</h1>
-		</c:when>
-		<c:otherwise>
-			<p>Welcome guest!</p>
-		</c:otherwise>
-	</c:choose>
+	</c:forEach>
 	</div>
-
-
 </body>
 </html>

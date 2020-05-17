@@ -6,23 +6,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
 body 
 {
-	background-image:url('feather.png');
-  background-repeat:no-repeat;
   background-position:center;
 	background-color:blanchedalmond;
 }
-h3
-{
-	color:green;
-}
 
 </style>
-<title>Home</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>history</title>
 </head>
 <body>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -64,21 +57,20 @@ h3
     </form>
   </div>
 </nav>
-<div class="container">
-		<c:if test="${ not empty message }">
-		<h3>${ message }</h3>
-		</c:if>
-		
-	<c:choose>
-		<c:when test="${ not empty sessionScope.activeUser }">
-			<h1>Welcome ${ sessionScope.activeUser }!</h1>
-		</c:when>
-		<c:otherwise>
-			<p>Welcome guest!</p>
-		</c:otherwise>
-	</c:choose>
-	</div>
 
+<div class="container">
+<h1>Transaction History</h1>
+
+<c:forEach items="${ sessionScope.history }" var="transaction">
+
+		<p>Date: ${ transaction.date }</p>
+		<p>Book name: ${ transaction.book.name }</p>
+		<p>Buyer: ${ transaction.buyer.email }</p>
+		<p>Price: ${ transaction.book.price }</p>
+		<p>------------------------------------</p>
+		
+	</c:forEach>
+	</div>
 
 </body>
 </html>

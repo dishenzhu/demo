@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,24 +20,25 @@ import com.fdm.service.UserService;
 @Controller
 public class RegisterController {
 
-	static final String ERROR_URL = "register";
-	static final String SUCCESS_URL = "redirect:/home";
-	static final String ACTIVE_USER = "activeUser";
-	static final String ERROR_MSG = "errorMessage";
-	static final String USERNAME_OR_EMAIL_EXISTS_MSG = "username or email already exists";
+	public static final String ERROR_URL = "register";
+	public static final String SUCCESS_URL = "redirect:/home";
+	public static final String ACTIVE_USER = "activeUser";
+	public static final String ERROR_MSG = "errorMessage";
+	public static final String USERNAME_OR_EMAIL_EXISTS_MSG = "username or email already exists";
 
 	private UserService userService;
-
+	private BCryptPasswordEncoder passwordEncoder;
+	
 	@Autowired
-	public RegisterController(UserService userService) {
+	public RegisterController(UserService userService, BCryptPasswordEncoder passwordEncoder) {
 		super();
 		this.userService = userService;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	@GetMapping(value = "/getRegister")
 	public String getRegisterPage(Model model, HttpSession session) {
 		if (session.getAttribute(ACTIVE_USER) != null) {
-			// redirect to controller with "/home" mapping 
 			return SUCCESS_URL;
 		}
 		model.addAttribute("formUser", new FormUser());
@@ -49,6 +51,7 @@ public class RegisterController {
 		if (bindingResult.hasErrors()) {
 			return ERROR_URL;
 		}
+		formUser.setPassword(passwordEncoder.encode(formUser.getPassword()));
 		User registeredUser = userService.register(formUser);
 		if (registeredUser == null) {
 			model.addAttribute(ERROR_MSG, USERNAME_OR_EMAIL_EXISTS_MSG);
@@ -58,8 +61,4 @@ public class RegisterController {
 		return SUCCESS_URL;
 	}
 
-	@GetMapping(value = "/login")
-	public String getLoginPage(Model model, HttpSession session) {
-		return "login";
-	}
 }
